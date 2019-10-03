@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Auto Fines - сервис по возмещению оплаченых штрафов за нарушение правил дорожного движения</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css" />
+		<script src="js/main.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var session = localStorage.getItem('session');
+				if (session != null) {
+					location.href = 'account.html';
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="preloader"><span>Загрузка...</span></div>
+		<div class="screen">
+			<div class="flex column justify-space-around align-center">
+				<div class="item">
+					<a href="index.html" class="back" screen></a>
+				</div>
+				<div class="item">
+					<div class="title">
+						<span>Авторизация</span>
+					</div>
+				</div>
+				<div class="item flex row justify-center">
+					<form id="form">
+						<input type="tel" name="tel" placeholder="Телефон" value="77022161265" required />
+						<input type="password" name="password" placeholder="Пароль" value="Hfvbkm#fbnjd" required />
+						<a href="forgot.html">Забыли пароль?</a>
+						<button>Войти</button>
+					</form>
+					<script>
+						$(document).ready(function() {
+							$("#form").on("submit", function(e) {
+								e.preventDefault();
+								var data = $(this).serialize();
+								$.ajax({
+									type: "POST",
+									url: "http://autofines.kz/data/signin.php",
+									data: data,
+									dataType: 'json',
+									success: function(result) {
+										if (result['alert'] == "warning") {
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.reload();
+										} else {
+											localStorage.setItem('session', result['session']);
+											localStorage.setItem('name', result['name']);
+											localStorage.setItem('tel', result['tel']);
+											localStorage.setItem('iin', result['iin']);
+											localStorage.setItem('card', result['card']);
+											localStorage.setItem('status', result['status']);
+											localStorage.setItem('date', result['date']);
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.href = "account.html";
+										}
+									}
+								});
+							});
+						});
+					</script>
+				</div>
+				<div class="item">
+					<a href="signup.html" screen>Регистрация</a>
+				</div>
+			</div>
+		</div>
+		<div id="message">
+			<script>
+				$(document).ready(function() {
+					var alert = localStorage.getItem('alert');
+					var message = localStorage.getItem('message');
+					if (alert != null) {
+						$('#message').html('<div id="alert" class="'+ alert +'">'+ message +'</div>');
+						localStorage.removeItem('alert');
+						localStorage.removeItem('message');
+					}
+				});
+			</script>
+		</div>
+	</body>
+</html>

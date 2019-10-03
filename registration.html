@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Auto Fines - сервис по возмещению оплаченых штрафов за нарушение правил дорожного движения</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css" />
+		<script src="js/main.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var session = localStorage.getItem('session');
+				if (session == null) {
+					location.href = 'signin.html';
+				}
+				var status = localStorage.getItem('status');
+				if (status == "0") {
+					location.href = 'pay.html';
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="preloader"><span>Загрузка...</span></div>
+		<div class="screen">
+			<div class="flex column justify-space-around align-center">
+				<div class="item">
+					<a href="account.html" class="back" screen></a>
+				</div>
+				<div class="item">
+					<div class="title">
+						<span>Р</span>
+						<span class="e">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+						<span>гистрация</span>
+					</div>
+					<div class="title">
+						<span>наруш</span>
+						<span class="e">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+						<span>ния</span>
+					</div>
+					<a onclick="logout();" btn>Выйти</a>
+				</div>
+				<div class="item">
+					<a href="photo-1.html" screen>Сфотографировать перечень документов</a></li>
+				</div>
+				<div class="item flex row justify-center">
+					<ol>
+						<li>Водительское удостоверение</li>
+						<li>Протокол или извещание</li>
+						<li>Квитанция об оплате штрафа</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

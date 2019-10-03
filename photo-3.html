@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Auto Fines - сервис по возмещению оплаченых штрафов за нарушение правил дорожного движения</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css" />
+		<script src="js/main.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var session = localStorage.getItem('session');
+				if (session == null) {
+					location.href = 'signin.html';
+				}
+				var status = localStorage.getItem('status');
+				if (status == "0") {
+					location.href = 'pay.html';
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="preloader"><span>Загрузка...</span></div>
+		<div class="screen">
+			<div class="flex column justify-center align-center">
+				<div class="item">
+					<a href="registration.html" class="back" screen></a>
+				</div>
+				<div class="item">
+					2. Квитанция об оплате штрафа
+				</div>
+				<div class="item flex row justify-center">
+					<form id="form" enctype="multipart/form-data">
+						<input id="file" type="file" name="photo" accept="image/*;capture=camera" />
+						<button id="button" type="button">Сфотографировать</button>
+						<img id="photo" src="" alt="" />
+						<button id="submit" type="submit">Подтвердить</button>
+						<button id="reload" type="button">Отмена</button>
+						<script>
+							$(document).ready(function() {
+								var id = localStorage.getItem('session');
+								$('#form').prepend('<input type="hidden" name="id" value="'+ id +'" />');
+							});
+						</script>
+					</form>
+					<script>
+						$(document).ready(function() {
+							$("#form").on("submit", function(e) {
+								e.preventDefault();
+								$.ajax({
+									type: "POST",
+									url: "http://autofines.kz/data/photo-3.php",
+									data: new FormData(this),
+									dataType: 'json',
+									contentType: false,
+									cache: false,
+									processData: false,
+									beforeSend: function() {
+										$('#preloader').fadeIn();
+									},
+									success: function(result) {
+										$('#preloader').fadeOut();
+										if (result['alert'] == "warning") {
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.reload();
+										} else {
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.href = "account.html";
+										}
+									}
+								});
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div id="message">
+			<script>
+				$(document).ready(function() {
+					var alert = localStorage.getItem('alert');
+					var message = localStorage.getItem('message');
+					if (alert != null) {
+						$('#message').html('<div id="alert" class="'+ alert +'">'+ message +'</div>');
+						localStorage.removeItem('alert');
+						localStorage.removeItem('message');
+					}
+				});
+			</script>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Auto Fines - сервис по возмещению оплаченых штрафов за нарушение правил дорожного движения</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css" />
+		<script src="js/main.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var session = localStorage.getItem('session');
+				if (session == null) {
+					location.href = 'signin.html';
+				}
+				var status = localStorage.getItem('status');
+				if (status == "1") {
+					location.href = 'account.html';
+					localStorage.setItem('alert', 'warning');
+					localStorage.setItem('message', 'Ваш полис уже активен!');
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="preloader"><span>Загрузка...</span></div>
+		<div class="screen">
+			<div class="flex column justify-space-around align-center">
+				<div class="item">
+					<a href="account.html" class="back" screen></a>
+				</div>
+				<div class="item">
+					<div class="title"><span>Оплата</span></div>
+					<div id="status">
+						<script>
+							$(document).ready(function() {
+								var status = localStorage.getItem('status');
+								if (status == '1') {
+									$('#status').html('<a href="registration.html" screen>Зарегистрировать нарушение</a>');
+								}
+							});
+						</script>
+					</div>
+					<a onclick="logout();" btn>Выйти</a>
+				</div>
+				<div class="item flex row justify-center">
+					<form id="form" method="post">
+						<script>
+							$(document).ready(function() {
+								var id = localStorage.getItem('session');
+								var today = new Date();
+								var dd = today.getDate();
+								var mm = today.getMonth() + 1;
+								var yyyy = today.getFullYear();
+								if (dd < 10) {
+									dd = '0' + dd;
+								} 
+								if (mm < 10) {
+									mm = '0' + mm;
+								} 
+								var date = dd + '' + mm + '' + yyyy;
+								$('#form').html(
+									'<label>Номер заказа (№)</label>'
+									+'<input type="text" name="order" value="' + id + date + '" readonly />'
+									+'<label>Сумма к оплате (тенге)</label>'
+									+'<input type="text" name="sum" value="5790" readonly />'
+									+'<input type="submit" value="Оплатить на сайте paybox.kz" />'
+								);
+							});
+						</script>
+					</form>
+					<script>
+						$(document).ready(function() {
+							var id = localStorage.getItem('session');
+							if ($.urlParam('id') == id || $.urlParam('pay') == 'success') {
+								$.ajax({
+									type: "POST",
+									url: "http://autofines.kz/data/pay.php",
+									data: {id: id},
+									dataType: 'json',
+									success: function(result) {
+										if (result['alert'] == "warning") {
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.reload();
+										} else {
+											localStorage.setItem('status', result['status']);
+											localStorage.setItem('date', result['date']);
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.href = "account.html";
+										}
+									}
+								});
+							}
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div id="message">
+			<script>
+				$(document).ready(function() {
+					var alert = localStorage.getItem('alert');
+					var message = localStorage.getItem('message');
+					if (alert != null) {
+						$('#message').html('<div id="alert" class="'+ alert +'">'+ message +'</div>');
+						localStorage.removeItem('alert');
+						localStorage.removeItem('message');
+					}
+				});
+			</script>
+		</div>
+	</body>
+</html>
