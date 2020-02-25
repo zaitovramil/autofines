@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Auto Fines - сервис по возмещению оплаченых штрафов за нарушение правил дорожного движения</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css" />
+		<script src="js/main.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var session = localStorage.getItem('session');
+				if (session != null) {
+					location.href = 'account.html';
+				}
+			});
+		</script>
+	</head>
+	<body class="app" id="deviceready">
+		<div class="event listening" id="preloader"><span>Загрузка...</span></div>
+		<div class="event received screen">
+			<div class="flex column justify-space-around align-center">
+				<div class="item">
+					<a href="index.html" class="back" screen></a>
+				</div>
+				<div class="item">
+					<div class="title">
+						<span>Восстановить</span>
+					</div>
+					<div class="title">
+						<span>пароль</span>
+					</div>
+				</div>
+				<div class="item flex row justify-center">
+					<form id="form">
+						<input type="email" name="email" placeholder="E-mail" required />
+						<button>Отправить</button>
+					</form>
+					<script>
+						$(document).ready(function() {
+							$("#form").on("submit", function(e) {
+								e.preventDefault();
+								var data = $(this).serialize();
+								$.ajax({
+									type: "POST",
+									url: "http://autofines.kz/data/forgot.php",
+									data: data,
+									dataType: 'json',
+									success: function(result) {
+										if (result['alert'] == "warning") {
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.reload();
+										} else {
+											localStorage.setItem('password', result['password']);
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.href = "signin.html";
+										}
+									},
+									error: function() {
+										localStorage.setItem('alert', 'warning');
+										localStorage.setItem('message', 'Отсутствует подключение к интернету!');
+										location.reload();
+									}
+								});
+							});
+						});
+					</script>
+				</div>
+				<div class="item">
+					<a href="signin.html" screen>Авторизация</a>
+				</div>
+			</div>
+		</div>
+		<div id="message">
+			<script>
+				$(document).ready(function() {
+					var alert = localStorage.getItem('alert');
+					var message = localStorage.getItem('message');
+					if (alert != null) {
+						$('#message').html('<div id="alert" class="'+ alert +'">'+ message +'</div>');
+						localStorage.removeItem('alert');
+						localStorage.removeItem('message');
+					}
+				});
+			</script>
+		</div>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			app.initialize();
+		</script>
+	</body>
+</html>

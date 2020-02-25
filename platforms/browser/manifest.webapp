@@ -1,0 +1,10 @@
+{
+  "name": "Auto Fines",
+  "description": "Simple app",
+  "launch_path": "/index.html",
+  "icons": {
+    "128": "/img/logo.png"
+  },
+  "default_locale": "ru",
+  "type": "privileged"
+}

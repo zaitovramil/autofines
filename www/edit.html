@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>Auto Fines - сервис по возмещению оплаченых штрафов за нарушение правил дорожного движения</title>
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="css/style.min.css" />
+		<script src="js/main.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				var session = localStorage.getItem('session');
+				if (session == null) {
+					location.href = 'signin.html';
+				}
+			});
+		</script>
+	</head>
+	<body class="app" id="deviceready">
+		<div class="event listening" id="preloader"><span>Загрузка...</span></div>
+		<div class="event received screen">
+			<div class="flex column justify-space-around align-center">
+				<div class="item">
+					<a href="account.html" class="back" screen></a>
+				</div>
+				<div class="item">
+					<div class="title">
+						<span>Изм</span>
+						<span class="e">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+						<span>нить данны</span>
+						<span class="e">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</div>
+					<div id="status">
+						<script>
+							$(document).ready(function() {
+								var status = localStorage.getItem('status');
+								if (status == '1') {
+									$('#status').html('<a href="registration.html" screen>Зарегистрировать нарушение</a>');
+								} else {
+									$('#status').html('<a href="pay.html" screen>Оплатить</a>');
+								}
+							});
+						</script>
+					</div>
+					<a onclick="logout();" btn>Выйти</a>
+				</div>
+				<div class="item flex row justify-center">
+					<form id="form">
+						<script>
+							$(document).ready(function() {
+								var id = localStorage.getItem('session');
+								var name = localStorage.getItem('name');
+								var email = localStorage.getItem('email');
+								var tel = localStorage.getItem('tel');
+								var iin = localStorage.getItem('iin');
+								var card = localStorage.getItem('card');
+								$('#form').html(
+									'<input type="hidden" name="id" value="'+ id +'" />'
+									+'<input type="text" name="name" value="'+ name +'" placeholder="ФИО" required />'
+									+'<input type="email" name="email" value="'+ email +'" placeholder="E-mail" required />'
+									+'<input type="tel" name="tel" value="'+ tel +'" minlength="12" maxlength="12" placeholder="Телефон +7----------" required />'
+									+'<input type="number" name="iin" value="'+ iin +'" minlength="12" maxlength="12" placeholder="ИИН" required />'
+									+'<input type="number" name="card" value="'+ card +'" minlength="16" maxlength="16" placeholder="Номер карты" required />'
+									+'<a href="password.html">Изменить пароль</a>'
+									+'<button>Сохранить</button>'
+								);
+							});
+						</script>
+					</form>
+					<script>
+						$(document).ready(function() {
+							$("#form").on("submit", function(e) {
+								e.preventDefault();
+								var data = $(this).serialize();
+								$.ajax({
+									type: "POST",
+									url: "http://autofines.kz/data/edit.php",
+									data: data,
+									dataType: 'json',
+									success: function(result) {
+										if (result['alert'] == "warning") {
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.reload();
+										} else {
+											localStorage.setItem('name', result['name']);
+											localStorage.setItem('email', result['email']);
+											localStorage.setItem('tel', result['tel']);
+											localStorage.setItem('iin', result['iin']);
+											localStorage.setItem('card', result['card']);
+											localStorage.setItem('alert', result['alert']);
+											localStorage.setItem('message', result['message']);
+											location.href = "account.html";
+										}
+									},
+									error: function() {
+										localStorage.setItem('alert', 'warning');
+										localStorage.setItem('message', 'Отсутствует подключение к интернету!');
+										location.reload();
+									}
+								});
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+		<div id="message">
+			<script>
+				$(document).ready(function() {
+					var alert = localStorage.getItem('alert');
+					var message = localStorage.getItem('message');
+					if (alert != null) {
+						$('#message').html('<div id="alert" class="'+ alert +'">'+ message +'</div>');
+						localStorage.removeItem('alert');
+						localStorage.removeItem('message');
+					}
+				});
+			</script>
+		</div>
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript">
+			app.initialize();
+		</script>
+	</body>
+</html>

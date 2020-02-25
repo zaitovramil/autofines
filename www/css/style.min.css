@@ -1,0 +1,289 @@
+@font-face {
+	font-family: "PFDinCondensedLight";
+    src: url("../fonts/PFDinCondensedLight/PFDinCondensedLight.eot?#iefix") format("embedded-opentype"),
+	url("../fonts/PFDinCondensedLight/PFDinCondensedLight.woff") format("woff"),
+	url("../fonts/PFDinCondensedLight/PFDinCondensedLight.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PFDinCondensedMedium";
+    src: url("../fonts/PFDinCondensedMedium/PFDinCondensedMedium.eot?#iefix") format("embedded-opentype"),
+	url("../fonts/PFDinCondensedMedium/PFDinCondensedMedium.woff") format("woff"),
+	url("../fonts/PFDinCondensedMedium/PFDinCondensedMedium.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PFDinCondensedRegular";
+    src: url("../fonts/PFDinCondensedRegular/PFDinCondensedRegular.eot?#iefix") format("embedded-opentype"),
+	url("../fonts/PFDinCondensedRegular/PFDinCondensedRegular.woff") format("woff"),
+	url("../fonts/PFDinCondensedRegular/PFDinCondensedRegular.ttf") format("truetype");
+}
+@font-face {
+	font-family: "PFDinCondensedThin";
+    src: url("../fonts/PFDinCondensedThin/PFDinCondensedThin.eot?#iefix") format("embedded-opentype"),
+	url("../fonts/PFDinCondensedThin/PFDinCondensedThin.woff") format("woff"),
+	url("../fonts/PFDinCondensedThin/PFDinCondensedThin.ttf") format("truetype");
+}
+* {
+	box-sizing: border-box;
+	user-select: none;
+}
+body, html {
+	width: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	background: #c8cedc;
+	color: #333;
+	font-family: "PFDinCondensedRegular";
+}
+html {
+	font-size: 24px;
+}
+body {
+	font-size: 1rem;
+}
+a {
+	display: inline-block;
+	text-decoration: underline;
+	color: inherit;
+}
+button, label {
+	cursor: pointer;
+}
+button, a {
+	transition: all .12s ease-in;
+}
+*:focus {
+	outline: 0!important;
+}
+img {
+	max-width: 100%;
+}
+p {
+	margin-top: 0;
+	text-align: left;
+}
+[hidden] {
+	display: none!important;
+}
+
+#preloader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	z-index: 9999;
+}
+#preloader span {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+	width: 100%;
+	font-family: "PFDinCondensedMedium";
+	font-size: 1.125rem;
+	text-align: center;
+	color: #333;
+}
+
+.flex {
+	display: flex;
+	min-height: 100%;
+}
+.row {
+	flex-direction: row;
+}
+.column {
+	flex-direction: column;
+}
+.wrap {
+	flex-wrap: wrap;
+}
+.nowrap {
+	flex-wrap: nowrap;
+}
+.justify-center {
+	justify-content: center;
+}
+.justify-space-around {
+	justify-content: space-around;
+}
+.justify-space-between {
+	justify-content: space-between;
+}
+.align-center {
+	align-items: center;
+}
+.align-space-around {
+	align-items: space-around;
+}
+.align-space-between {
+	align-items: space-between;
+}
+
+.screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	text-align: center;
+}
+
+.item {
+	width: 100%;
+	padding: 15px 10px;
+}
+
+.title {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	width: 100%;
+	height: 34px;
+	margin-bottom: 15px;
+    font-size: 1.875rem;
+	text-transform: uppercase;
+}
+.title:last-child {
+	margin-bottom: 0;
+}
+.title span {
+	line-height: 34px;
+}
+.e {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 15px;
+	height: 100%;
+	padding: 0 1px;
+}
+.e span {
+	width: 100%;
+	height: 3px;
+	background: #333;
+}
+
+[screen] {
+	width: 100%;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+}
+
+.back {
+	width: 32px;
+	height: 32px;
+	background: url(../img/back.png) center no-repeat;
+    background-size: 100%;
+}
+
+form {
+	max-width: 320px;
+}
+label {
+	display: block;
+	text-align: left;
+}
+input {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    background: #fff;
+    border: 0;
+	border-radius: 0;
+	font-family: "PFDinCondensedThin";
+    font-size: .875rem;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+	display: none;
+}
+button, [btn], [type=submit] {
+	width: auto;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 15px 15px;
+    padding: 0 10px;
+    background: #333;
+    border: 0;
+	border-radius: 0;
+	font-family: "PFDinCondensedThin";
+    font-size: .875rem;
+	text-decoration: none;
+    color: #fff;
+}
+
+ul, ol {
+    display: inline-block;
+	margin: 0 0 15px;
+	padding-left: 20px;
+	text-align: left;
+}
+li {
+	min-width: 225px;
+	margin-bottom: 5px;
+}
+li a {
+	display: inline;
+}
+
+.status {
+	font-family: "PFDinCondensedMedium";
+}
+.status-1 {
+	color: green;
+}
+.status-0 {
+	color: red;
+}
+
+#alert {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 10px 15px;
+	color: #fff;
+	font-family: "PFDinCondensedThin";
+	font-size: 1rem;
+	text-align: left;
+	z-index: 999;
+}
+.success {
+	background: rgba(0, 128, 0, 0.9);
+}
+.warning {
+	background: rgba(222, 68, 60, 0.9);
+}
+
+#button, #photo {
+	margin: 15px 0;
+}
+#file, #photo, #submit, #reload {
+	display: none;
+}
+
+#description {
+	max-width: 736px;
+	margin: auto;
+}
+
+table {
+    width: 100%;
+	margin-bottom: 20px;
+    text-align: left;
+	border-collapse: collapse;
+}
+tr {
+	border-bottom: 2px solid #333;
+}
+th, td {
+	padding: 5px;
+    vertical-align: top;
+}
