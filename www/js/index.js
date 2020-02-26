@@ -34,6 +34,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+		document.addEventListener("backbutton", dismissApp, false);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -43,7 +44,15 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
     }
+};
+
+function dismissApp() {
+	if (navigator && navigator.app) {
+		navigator.app.exitApp();
+	} else {
+		if (navigator && navigator.device) {
+			navigator.device.exitApp();
+		}
+	}
 };
