@@ -9,9 +9,6 @@
     "installed_plugins": {
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.phonegap.autofines"
-        },
-        "cordova-plugin-device-orientation": {
-            "PACKAGE_NAME": "com.phonegap.autofines"
         }
     },
     "dependent_plugins": {

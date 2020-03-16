@@ -23,5 +23,4 @@
     <preference name="orientation" value="portrait" />
     <preference name="splash-screen-duration" value="0" />
     <preference name="SplashScreenDelay" value="0" />
-    <preference name="fullscreen" value="true" />
 </widget>
