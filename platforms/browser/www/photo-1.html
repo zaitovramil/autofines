@@ -34,7 +34,7 @@
 					<form id="form" enctype="multipart/form-data">
 						<input id="file" type="file" name="photo" accept="image/*;capture=camera" />
 						<button id="button" type="button">Сфотографировать</button>
-						<img id="photo" src="" />
+						<img id="photo" src="" alt="" />
 						<button id="submit" type="submit">Подтвердить</button>
 						<button id="reload" type="button">Отмена</button>
 						<script>
@@ -73,7 +73,7 @@
 									},
 									error: function() {
 										localStorage.setItem('alert', 'warning');
-										localStorage.setItem('message', 'Приложение не может подключится к серверу!');
+										localStorage.setItem('message', 'Не удается подключиться к серверу!');
 										location.reload();
 									}
 								});
