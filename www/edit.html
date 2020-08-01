@@ -68,7 +68,7 @@
 									+'<input type="email" name="email" value="'+ email +'" placeholder="E-mail" required />'
 									+'<input type="tel" name="tel" value="'+ tel +'" minlength="12" maxlength="12" placeholder="Телефон +7----------" required />'
 									+'<input type="number" name="iin" value="'+ iin +'" minlength="12" maxlength="12" placeholder="ИИН" required />'
-									+'<input type="number" name="card" value="'+ card +'" minlength="16" maxlength="16" placeholder="Номер карты" required />'
+									+'<input type="number" name="card" value="'+ card +'" minlength="16" maxlength="16" placeholder="Номер счета" required />'
 									+'<a href="password.html">Изменить пароль</a>'
 									+'<button>Сохранить</button>'
 								);
@@ -82,7 +82,7 @@
 								var data = $(this).serialize();
 								$.ajax({
 									type: "POST",
-									url: "http://autofines.kz/data/edit.php",
+									url: "https://autofines.z-cube.kz/data/edit.php",
 									data: data,
 									dataType: 'json',
 									success: function(result) {

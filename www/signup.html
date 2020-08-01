@@ -40,7 +40,7 @@
 						<input type="email" name="email" placeholder="E-mail" required />
 						<input type="tel" name="tel" minlength="12" maxlength="12" placeholder="Телефон +7----------" required />
 						<input type="text" name="iin" minlength="12" maxlength="12" placeholder="ИИН" required />
-						<input type="text" name="card" minlength="16" maxlength="16" placeholder="Номер карты" required />
+						<input type="text" name="card" minlength="16" maxlength="16" placeholder="Номер счета" required />
 						<input type="password" name="password" placeholder="Пароль" required />
 						<div class="agree">
 							<label>
@@ -58,7 +58,7 @@
 								var data = $(this).serialize();
 								$.ajax({
 									type: "POST",
-									url: "http://autofines.kz/data/signup.php",
+									url: "https://autofines.z-cube.kz/data/signup.php",
 									data: data,
 									dataType: 'json',
 									success: function(result) {
