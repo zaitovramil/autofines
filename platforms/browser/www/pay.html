@@ -75,7 +75,7 @@
 							if ($.urlParam('id') == id || $.urlParam('pay') == 'success') {
 								$.ajax({
 									type: "POST",
-									url: "https://autofines.z-cube.kz/data/pay.php",
+									url: "http://autofines.z-cube.kz/data/pay.php",
 									data: {id: id},
 									dataType: 'json',
 									success: function(result) {
