@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src https://autofines.z-cube.kz/">
 		<title>Auto Fines - сервис по возмещению оплаченых штрафов за нарушение правил дорожного движения</title>
 		<link rel="shortcut icon" href="favicon.ico" />
 		<link rel="stylesheet" type="text/css" href="css/style.min.css" />
@@ -61,7 +62,7 @@
 									url: "https://autofines.z-cube.kz/data/signup.php",
 									data: data,
 									dataType: 'json',
-									success: function(result) {
+									success: function(result, xhr) {
 										if (result['alert'] == "warning") {
 											localStorage.setItem('alert', result['alert']);
 											localStorage.setItem('message', result['message']);
